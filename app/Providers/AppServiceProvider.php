@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->singleton('pagination_value' , function($app){
+
+            return 10;
+        });
     }
 
     /**
