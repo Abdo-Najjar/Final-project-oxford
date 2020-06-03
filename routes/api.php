@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Hash;
 */
 
 Route::post('/sanctum/token', function (Request $request) {
-    
-        $request->validate([
+
+    $request->validate([
         'email' => 'required|email',
         'password' => 'required',
         'device_name' => 'required'
@@ -26,7 +26,7 @@ Route::post('/sanctum/token', function (Request $request) {
 
     $user = User::where('email', $request->email)->first();
 
-    if (! $user || ! Hash::check($request->password, $user->password)) {
+    if (!$user || !Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.'],
         ]);
@@ -36,13 +36,14 @@ Route::post('/sanctum/token', function (Request $request) {
 });
 
 
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::middleware('auth:sanctum')->group(function(){
-    
     //courses route
-    Route::apiResource('courses' , 'CourseController');
-
+    Route::apiResource('courses', 'CourseController');
 });
 
 
-    
+
+Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');
+
+Route::get('advertisements/{course}/course', 'AdvertisementController@show')->name('advertisements.show');
