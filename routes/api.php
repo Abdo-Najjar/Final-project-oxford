@@ -1,10 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\User;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,34 +12,30 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-Route::post('/sanctum/token', function (Request $request) {
+//login 
+Route::post('/sanctum/token', 'UserController@apiLogin');
 
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-        'device_name' => 'required'
-    ]);
+//logout 
+Route::post('/sanctum/logout', 'UserController@logout');
 
-    $user = User::where('email', $request->email)->first();
-
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
-    }
-
-    return $user->createToken($request->device_name)->plainTextToken;
-});
+//logout from all devices
+Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
 
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    //courses route
+
+    //dashbaord 
     Route::apiResource('courses', 'CourseController');
+
+    Route::get('applications', 'ApplicationController@index')->name('applications.index');
 });
 
 
 
+//guest
 Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');
 
 Route::get('advertisements/{course}/course', 'AdvertisementController@show')->name('advertisements.show');
+
+Route::post('applications' , 'ApplicationController@store')->name('applications.store');
