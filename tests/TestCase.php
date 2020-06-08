@@ -15,4 +15,10 @@ abstract class TestCase extends BaseTestCase
     {
       return  Sanctum::actingAs(factory(User::class)->create());
     }
+
+    public function require_message($field)
+    {
+
+      return "The {$field} field is required.";
+    }
 }

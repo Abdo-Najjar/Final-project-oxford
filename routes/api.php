@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\Route;
 //login 
 Route::post('/sanctum/token', 'UserController@apiLogin');
 
-//logout 
-Route::post('/sanctum/logout', 'UserController@logout');
-
-//logout from all devices
-Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
-
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    //logout 
+    Route::post('/sanctum/logout', 'UserController@logout');
+
+    //logout from all devices
+    Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
+
+    //user profile
+    Route::get('/user', 'UserController@user');
 
     //dashbaord 
     Route::apiResource('courses', 'CourseController');
@@ -38,4 +40,4 @@ Route::get('advertisements', 'AdvertisementController@index')->name('advertiseme
 
 Route::get('advertisements/{course}/course', 'AdvertisementController@show')->name('advertisements.show');
 
-Route::post('applications' , 'ApplicationController@store')->name('applications.store');
+Route::post('applications', 'ApplicationController@store')->name('applications.store');

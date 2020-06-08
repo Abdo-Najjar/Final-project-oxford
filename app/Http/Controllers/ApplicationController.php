@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Application;
+use App\Http\Requests\Application\StoreRequest;
 use App\Http\Resources\ApplicationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,9 +26,9 @@ class ApplicationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        return response()->json(Application::create($request->all()), Response::HTTP_CREATED);
+        return response()->json(Application::create($request->validated()), Response::HTTP_CREATED);
     }
 
     /**

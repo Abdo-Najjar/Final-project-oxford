@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Application;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class ApplicaitonTest extends TestCase
@@ -53,32 +55,79 @@ class ApplicaitonTest extends TestCase
     public function test_guest_user_could_send_an_application()
     {
 
+
+
+
         $data = [
-            'first_name' => 'Abdo',
+            'first_name' => 'abdo',
             'last_name' => 'Najjar',
-            'email' => "abdo@abdo.com",
-            'address' => "Rafah Elbahra street",
-            'dob' => '1999-24-1',
+            'email' => 'abdo@abdo.com',
+            'address' => 'Rafah Elbahra street',
+            'dob' => Carbon::create(2018, 2, 1)->format('y-m-d'),
             'phone_number' => '0454654556',
             'level' => 'C',
-            'days' => "Monday to Friday",
-            'time' => date('H:i:s'),
-            'major_of_study' => "asdasdsadda",
-            'recognize' => "asdsadsadsadasd",
-            'notes' => "sadsadsadsadasd",
-            'picture_permission' => 1,
+            'days' => 'Monday to Friday',
+            'time' => date('H:i'),
+            'major_of_study' => 'asdasdsadda',
+            'recognize' => 'asdsadsadsadasd',
+            'notes' => 'sadsadsadsadasd',
+            'picture_permission' => true,
             'national_number' => 4545465456456454654,
 
         ];
 
+
+
         $numberOfExpected = 1;
 
-        $response = $this->postJson(route('applications.store'), $data);
-        
+
+        $response = $this->postJson(route('applications.store'), $data)->dump();
+
+
         $response->assertCreated();
 
-        $this->assertCount($numberOfExpected , Application::all());
-        
+        $this->assertCount($numberOfExpected, Application::all());
+
         $this->assertDatabaseHas('applications', $data);
     }
+
+    public function test_validattion_require_store_method()
+    {
+
+
+        $data = [
+            'first_name' => '',
+            'last_name' => '',
+            'email' => '',
+            'address' => '',
+            'dob' => '',
+            'phone_number' => '',
+            'level' => '',
+            'days' => '',
+            'time' => '',
+            'major_of_study' => '',
+            'recognize' => '',
+            'notes' => '',
+            'picture_permission' => '',
+            'national_number' => '',
+
+        ];
+
+        $response = $this->postJson(route('applications.store'), $data);
+
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonPath('errors.first_name', [$this->require_message('first name')])
+            ->assertJsonPath('errors.last_name', [$this->require_message('last name')])
+            ->assertJsonPath('errors.email', [$this->require_message('email')])
+            ->assertJsonPath('errors.address', [$this->require_message('address')])
+            ->assertJsonPath('errors.dob', [$this->require_message('date of birth')])
+            ->assertJsonPath('errors.phone_number', [$this->require_message('phone number')])
+            ->assertJsonPath('errors.level', [$this->require_message('level')])
+            ->assertJsonPath('errors.days', [$this->require_message('days')])
+            ->assertJsonPath('errors.time', [$this->require_message('time')])
+            ->assertJsonPath('errors.major_of_study', [$this->require_message('major of study')])
+            ->assertJsonPath('errors.picture_permission', [$this->require_message('picture permission')])
+            ->assertJsonPath('errors.national_number', [$this->require_message('national number')]);
+    }
+
 }
