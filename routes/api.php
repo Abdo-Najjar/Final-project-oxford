@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //logout 
     Route::post('/sanctum/logout', 'UserController@logout');
 
+
     //logout from all devices
     Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
 
