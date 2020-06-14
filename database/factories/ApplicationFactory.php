@@ -8,6 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Application::class, function (Faker $faker) {
     return [
         'first_name' => $faker->word(),
+        'gender'=>random_int(1,2),
         'last_name' => $faker->word(),
         'email' => $faker->safeEmail,
         'address' => $faker->word(),

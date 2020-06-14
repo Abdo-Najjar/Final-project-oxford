@@ -18,6 +18,9 @@ class CreateApplicationsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
+
+            //1 for mail 2 for femail
+            $table->enum('gender' , [1,2]);
             $table->string('address');
             $table->date('dob');
             $table->string('phone_number');

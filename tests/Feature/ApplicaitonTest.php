@@ -28,6 +28,7 @@ class ApplicaitonTest extends TestCase
                 [
                     'first_name',
                     'last_name',
+                    'gender',
                     'email',
                     'address',
                     'dob',
@@ -55,15 +56,15 @@ class ApplicaitonTest extends TestCase
     public function test_guest_user_could_send_an_application()
     {
 
-
-
+        $this->withoutExceptionHandling();
 
         $data = [
             'first_name' => 'abdo',
             'last_name' => 'Najjar',
             'email' => 'abdo@abdo.com',
+            'gender' =>'2',
             'address' => 'Rafah Elbahra street',
-            'dob' => Carbon::create(2018, 2, 1)->format('y-m-d'),
+            'dob' => Carbon::create(2018, 2, 1)->format('Y-m-d'),
             'phone_number' => '0454654556',
             'level' => 'C',
             'days' => 'Monday to Friday',
@@ -81,7 +82,7 @@ class ApplicaitonTest extends TestCase
         $numberOfExpected = 1;
 
 
-        $response = $this->postJson(route('applications.store'), $data)->dump();
+        $response = $this->postJson(route('applications.store'), $data);
 
 
         $response->assertCreated();
@@ -97,6 +98,7 @@ class ApplicaitonTest extends TestCase
 
         $data = [
             'first_name' => '',
+            'gender'=>'',
             'last_name' => '',
             'email' => '',
             'address' => '',
@@ -115,10 +117,12 @@ class ApplicaitonTest extends TestCase
 
         $response = $this->postJson(route('applications.store'), $data);
 
+
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonPath('errors.first_name', [$this->require_message('first name')])
             ->assertJsonPath('errors.last_name', [$this->require_message('last name')])
             ->assertJsonPath('errors.email', [$this->require_message('email')])
+            ->assertJsonPath('errors.gender', [$this->require_message('gender')])
             ->assertJsonPath('errors.address', [$this->require_message('address')])
             ->assertJsonPath('errors.dob', [$this->require_message('date of birth')])
             ->assertJsonPath('errors.phone_number', [$this->require_message('phone number')])

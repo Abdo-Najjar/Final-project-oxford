@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Application;
-use App\Http\Requests\Application\StoreRequest;
-use App\Http\Resources\ApplicationResource;
+use App\Section;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class ApplicationController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,17 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        return ApplicationResource::collection(Application::paginate(app('pagination_value')));
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,19 +33,29 @@ class ApplicationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
-        return new ApplicationResource(Application::create($request->validated()));
+        //
     }
 
     /**
      * Display the specified resource.
      *
-
-     * @param  \App\Application  $application
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Application $application)
+    public function show(Section $section)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Section  $section
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Section $section)
     {
         //
     }
@@ -47,10 +64,10 @@ class ApplicationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Application  $application
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Application $application)
+    public function update(Request $request, Section $section)
     {
         //
     }
@@ -58,10 +75,10 @@ class ApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Application  $application
+     * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Application $application)
+    public function destroy(Section $section)
     {
         //
     }
