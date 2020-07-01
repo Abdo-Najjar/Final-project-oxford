@@ -27,7 +27,8 @@ class UserController extends Controller
             ]);
         }
         
-        $user->token = $user->createToken($request->device_name)->plainTextToken;
+        $user->token = "Bearer {$user->createToken($request->device_name)->plainTextToken}";
+        
         return new UserResource($user);
     }
 
