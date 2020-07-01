@@ -25,16 +25,16 @@ Route::middleware('auth:sanctum')->group(function () {
     //logout from all devices
     Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
 
-    //user profile
-    Route::get('/user', 'UserController@user');
-
+    
     //dashbaord 
     Route::apiResource('courses', 'CourseController');
-
+    
     Route::get('applications', 'ApplicationController@index')->name('applications.index');
 });
 
 
+//user profile
+Route::get('/user/{user}', 'UserController@user');
 
 //guest
 Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');

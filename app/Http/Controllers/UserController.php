@@ -26,8 +26,9 @@ class UserController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-
-        return $user->createToken($request->device_name)->plainTextToken;
+        
+        $user->token = $user->createToken($request->device_name)->plainTextToken;
+        return new UserResource($user);
     }
 
     public function logout(Request $request)
@@ -44,8 +45,8 @@ class UserController extends Controller
         return response()->json(['message' => 'logout successfuly']);
     }
 
-    public function user(Request $request)
+    public function user(User $user)
     {
-        return new UserResource($request->user());
+        return new UserResource($user);
     }
 }

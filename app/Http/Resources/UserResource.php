@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Request;
 
 class UserResource extends JsonResource
 {
@@ -14,6 +15,13 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'token' => $this->when(Request::segment(3) == 'token', $this->token),
+            'type' => $this->usertype->type
+        ];
     }
 }
