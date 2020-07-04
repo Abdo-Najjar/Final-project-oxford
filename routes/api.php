@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //dashbaord 
     Route::apiResource('courses', 'CourseController');
     
-    Route::get('applications', 'ApplicationController@index')->name('applications.index');
+    Route::get('applications', 'ApplicationController@index')-> name('applications.index');
 });
 
 

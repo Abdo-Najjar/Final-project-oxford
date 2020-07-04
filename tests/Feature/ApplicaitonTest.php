@@ -72,8 +72,8 @@ class ApplicaitonTest extends TestCase
             'major_of_study' => 'asdasdsadda',
             'recognize' => 'asdsadsadsadasd',
             'notes' => 'sadsadsadsadasd',
-            'picture_permission' => true,
-            'national_number' => 4545465456456454654,
+            'picture_permission' => "1",
+            'national_number' => "4545465456456454654",
 
         ];
 
@@ -82,7 +82,7 @@ class ApplicaitonTest extends TestCase
         $numberOfExpected = 1;
 
 
-        $response = $this->postJson(route('applications.store'), $data);
+        $response = $this->postJson(route('applications.store'), $data)->dump();
 
 
         $response->assertCreated();

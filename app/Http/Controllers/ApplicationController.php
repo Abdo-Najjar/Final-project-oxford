@@ -33,19 +33,16 @@ class ApplicationController extends Controller
 
     /**
      * Display the specified resource.
-     *
-
      * @param  \App\Application  $application
      * @return \Illuminate\Http\Response
      */
     public function show(Application $application)
     {
-        //
+        return new ApplicationResource($application);
     }
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Application  $application
      * @return \Illuminate\Http\Response

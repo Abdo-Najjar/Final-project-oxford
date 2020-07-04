@@ -14,7 +14,7 @@ class AddUsertypeColumn extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('usertype_id')->index();
+            $table->foreignId('usertype_id')->index()->nullable();
             $table->foreign('usertype_id')->references('id')->on('user_types');
         });
     }
