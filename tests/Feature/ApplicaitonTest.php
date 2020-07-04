@@ -82,7 +82,7 @@ class ApplicaitonTest extends TestCase
         $numberOfExpected = 1;
 
 
-        $response = $this->postJson(route('applications.store'), $data)->dump();
+        $response = $this->postJson(route('applications.store'), $data);
 
 
         $response->assertCreated();
@@ -132,6 +132,22 @@ class ApplicaitonTest extends TestCase
             ->assertJsonPath('errors.major_of_study', [$this->require_message('major of study')])
             ->assertJsonPath('errors.picture_permission', [$this->require_message('picture permission')])
             ->assertJsonPath('errors.national_number', [$this->require_message('national number')]);
+    }
+
+
+    public function test_delete_application()
+    {
+        
+        $applicationId = factory(Application::class)->create()->id;
+
+        $this->actingAsSanctumUser();        
+        
+        $response =  $this->delete(route('applications.destroy' , $applicationId));        
+
+        $response->assertNoContent();
+
+        $this->assertDatabaseMissing('applications' , ['id'=>$applicationId]);
+
     }
 
 }

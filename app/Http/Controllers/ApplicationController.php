@@ -60,6 +60,8 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+        $application->delete();
+        
+        return response()->noContent();
     }
 }
