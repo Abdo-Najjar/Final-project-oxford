@@ -91,4 +91,13 @@ class CourseManagementTest extends TestCase
       ]
     ]);
   }
+
+
+  public function test_logged_in_user_can_store_course()
+  {
+    
+    
+
+  }
+
 }

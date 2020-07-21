@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Http\Requests\Course\StoreRequest;
 use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,11 +25,11 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        // $course = Course::create($request->validated());
-       
-        // return response()->json(['data'=>$course] , Response::HTTP_CREATED);
+        
+        
+        return new CourseResource(Course::create($request->validated()));
     }
 
     /**

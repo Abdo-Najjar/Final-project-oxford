@@ -25,13 +25,19 @@ Route::middleware('auth:sanctum')->group(function () {
     //logout from all devices
     Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
 
-    
+
     //dashbaord 
     Route::apiResource('courses', 'CourseController');
 
-    
+
     //cruds operations
-    Route::resource('applications' , 'ApplicationController');
+    Route::apiResource('applications', 'ApplicationController');
+
+    //cruds advertisements
+    
+    Route::delete('advertisements/{advertisement}', 'AdvertisementController@destroy')->name('advertisements.destroy');
+
+    Route::post('advertisements', 'AdvertisementController@store')->name('advertisements.store');
 });
 
 

@@ -13,7 +13,6 @@ $factory->define(Course::class, function (Faker $faker) {
         'price' => random_int(100, 500),
         'books_fees' => random_int(100, 500),
         'min_age' => random_int(100, 500),
-        'level' => $faker->word(),
         'mook_exam' => random_int(0, 5),
         'duration' => $faker->word(),
         'class_size' => random_int(0, 5),

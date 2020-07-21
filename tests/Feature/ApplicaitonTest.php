@@ -56,13 +56,12 @@ class ApplicaitonTest extends TestCase
     public function test_guest_user_could_send_an_application()
     {
 
-        $this->withoutExceptionHandling();
 
         $data = [
             'first_name' => 'abdo',
             'last_name' => 'Najjar',
             'email' => 'abdo@abdo.com',
-            'gender' =>'2',
+            'gender' => '2',
             'address' => 'Rafah Elbahra street',
             'dob' => Carbon::create(2018, 2, 1)->format('Y-m-d'),
             'phone_number' => '0454654556',
@@ -98,7 +97,7 @@ class ApplicaitonTest extends TestCase
 
         $data = [
             'first_name' => '',
-            'gender'=>'',
+            'gender' => '',
             'last_name' => '',
             'email' => '',
             'address' => '',
@@ -135,19 +134,52 @@ class ApplicaitonTest extends TestCase
     }
 
 
+
+    public function test_show_application()
+    {
+
+        $this->actingAsSanctumUser();
+
+        $applicationId =  factory(Application::class)->create()->id;
+
+        $response = $this->getJson(route('applications.show', $applicationId));
+
+        $response->assertOk();
+
+        $response->assertJsonStructure([
+
+            'data' => [
+                'first_name',
+                'gender',
+                'last_name',
+                'email',
+                'address',
+                'dob',
+                'phone_number',
+                'level',
+                'days',
+                'time',
+                'major_of_study',
+                'recognize',
+                'notes',
+                'picture_permission',
+                'national_number',
+            ]
+
+        ]);
+    }
+
     public function test_delete_application()
     {
-        
+
+        $this->actingAsSanctumUser();
+
         $applicationId = factory(Application::class)->create()->id;
 
-        $this->actingAsSanctumUser();        
-        
-        $response =  $this->delete(route('applications.destroy' , $applicationId));        
+        $response =  $this->deleteJson(route('applications.destroy', $applicationId));
 
         $response->assertNoContent();
 
-        $this->assertDatabaseMissing('applications' , ['id'=>$applicationId]);
-
+        $this->assertDatabaseMissing('applications', ['id' => $applicationId]);
     }
-
 }

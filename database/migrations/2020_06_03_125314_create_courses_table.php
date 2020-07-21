@@ -16,13 +16,11 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->string('image')->nullable();
             $table->longText('description');
             $table->longText('details');
             $table->double('price');
             $table->double('books_fees');
             $table->integer('min_age');
-            $table->string('level');
             $table->integer('mook_exam');
             $table->string('duration');
             $table->integer('class_size');

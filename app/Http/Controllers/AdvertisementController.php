@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Advertisement;
 use App\Course;
+use App\Http\Requests\Advertisement\StoreRequest;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AdvertisementController extends Controller
 {
@@ -21,24 +23,20 @@ class AdvertisementController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+
+        $advertisement = Advertisement::create($request->validated());
+
+        $advertisement->addMediaFromRequest('image')
+            ->toMediaCollection('images');
+
+        return  response(new AdvertisementResource($advertisement->fresh()), Response::HTTP_CREATED);
     }
 
     /**
@@ -50,17 +48,6 @@ class AdvertisementController extends Controller
     public function show(Course $course)
     {
         return new CourseResource($course);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Advertisement  $advertisement
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Advertisement $advertisement)
-    {
-        //
     }
 
     /**
@@ -83,6 +70,11 @@ class AdvertisementController extends Controller
      */
     public function destroy(Advertisement $advertisement)
     {
-        //
+
+        $advertisement->clearMediaCollection('images');
+
+        $advertisement->delete();
+
+        return response()->noContent();
     }
 }

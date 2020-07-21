@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Application;
 use App\Http\Requests\Application\StoreRequest;
 use App\Http\Resources\ApplicationResource;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ApplicationController extends Controller
 {
@@ -41,16 +39,6 @@ class ApplicationController extends Controller
         return new ApplicationResource($application);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Application  $application
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Application $application)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -61,7 +49,7 @@ class ApplicationController extends Controller
     public function destroy(Application $application)
     {
         $application->delete();
-        
+
         return response()->noContent();
     }
 }

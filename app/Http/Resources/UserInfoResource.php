@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdvertisementResource extends JsonResource
+class UserInfoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,6 @@ class AdvertisementResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id'=>$this->id,
-            'image' => $this->image(),
-            'course_id' => $this->course_id,
-            'created_at'=>$this->created_at,
-            'updated_at'=> $this->updated_at
-        ];
+        return parent::toArray($request);
     }
 }

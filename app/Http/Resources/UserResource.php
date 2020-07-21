@@ -18,10 +18,13 @@ class UserResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
             'token' => $this->when(Request::segment(3) == 'token', $this->token),
-            'type' => $this->usertype->type
+            'type' => $this->usertype->type,
+            'phone_number' => $this->phone_number,
+            'dob' => $this->dob,
+            'details' => new UserInfoResource($this->userInfo),
         ];
     }
 }

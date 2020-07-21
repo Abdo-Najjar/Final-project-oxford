@@ -1,9 +1,9 @@
 <?php
 
-use App\Advertisement;
+use App\UserInfo;
 use Illuminate\Database\Seeder;
 
-class AdvertisementSeeder extends Seeder
+class UserInfoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class AdvertisementSeeder extends Seeder
      */
     public function run()
     {
-        factory(Advertisement::class, 5)->create();
+        factory(UserInfo::class, 10)->create();
     }
 }
