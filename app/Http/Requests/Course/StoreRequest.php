@@ -24,18 +24,18 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'=>'required|string|max:255',
+            'title'=>'required|string|max:255',
+            'course_type_id'=>'required|exists:course_types,id',
             'image'=>'required|file|image|max:2000',
             'description'=>'required|string',
             'details'=>'required|string',
             'price'=>'required|numeric',
             'books_fees'=>'required|numeric',
             'min_age'=>'required|numeric',
-            'level'=>'required|string|max:255',
             'mook_exam'=>'required|integer',
             'duration'=>'required|string|max:255',
-            'class_size'=>'required||string|max:255',
-            'weeks'=>'required||string|max:255',
+            'class_size'=>'required|integer',
+            'weeks'=>'required|integer',
             'days'=>'required|string|max:255',
             'hours'=>'required|integer',
             'start'=>'required|string|max:255',

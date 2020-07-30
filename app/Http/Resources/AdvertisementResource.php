@@ -15,11 +15,11 @@ class AdvertisementResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->id,
+            'id' => $this->id,
             'image' => $this->image(),
             'course_id' => $this->course_id,
-            'created_at'=>$this->created_at,
-            'updated_at'=> $this->updated_at
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

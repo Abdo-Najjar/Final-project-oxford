@@ -14,7 +14,10 @@ class Advertisement extends Model implements HasMedia
 
     protected $guarded = [];
 
-
+    /**
+     * get image from polymporfic realationship
+     *
+     */
     public function image()
     {
         if ($this->media->first()) {

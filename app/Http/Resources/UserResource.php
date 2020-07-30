@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'token' => $this->when(Request::segment(3) == 'token', $this->token),
-            'type' => $this->usertype->type,
+            'type' => $this->userType->type,
             'phone_number' => $this->phone_number,
             'dob' => $this->dob,
             'details' => new UserInfoResource($this->userInfo),

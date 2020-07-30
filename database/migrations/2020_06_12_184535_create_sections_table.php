@@ -15,10 +15,12 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id');
-            $table->foreignId('teacher_id');
-            $table->string('code');
+            $table->string('name')->unique();
+            $table->foreignId('course_id')->index();
+            $table->foreignId('user_id')->index();
             $table->timestamps();
+            $table->foreign('course_id')->references('id')->on('courses');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -3,11 +3,14 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Course;
+use App\CourseType;
 use Faker\Generator as Faker;
 
 $factory->define(Course::class, function (Faker $faker) {
+    $courseTypes = CourseType::all();
     return [
-        'type' => $faker->word(),
+        'title'=>$faker->word(),
+        'course_type_id' => $faker->randomElement($courseTypes),
         'description' => $faker->paragraph(),
         'details' => $faker->paragraph(),
         'price' => random_int(100, 500),

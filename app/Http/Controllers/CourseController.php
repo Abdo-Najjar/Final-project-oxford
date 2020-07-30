@@ -7,6 +7,7 @@ use App\Http\Requests\Course\StoreRequest;
 use App\Http\Resources\CourseResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
 class CourseController extends Controller
 {
     /**
@@ -27,9 +28,12 @@ class CourseController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        
-        
-        return new CourseResource(Course::create($request->validated()));
+        $course =  Course::create($request->except('image'));
+
+        $course->addMediaFromRequest('image')
+            ->toMediaCollection('images');
+
+        return  response(new CourseResource($course), Response::HTTP_CREATED);
     }
 
     /**
@@ -52,7 +56,17 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        if ($request->hasFile('image')) {
+
+            $course->clearMediaCollection('images');
+
+            $course->addMediaFromRequest('image')
+                ->toMediaCollection('images');
+        }
+
+        $course->update($request->except('image'));
+
+        return response()->noContent();
     }
 
     /**
@@ -63,6 +77,11 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+
+        $course->clearMediaCollection('images');
+
+        $course->delete();
+
+        return response()->noContent();
     }
 }

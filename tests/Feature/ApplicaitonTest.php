@@ -80,9 +80,7 @@ class ApplicaitonTest extends TestCase
 
         $numberOfExpected = 1;
 
-
         $response = $this->postJson(route('applications.store'), $data);
-
 
         $response->assertCreated();
 

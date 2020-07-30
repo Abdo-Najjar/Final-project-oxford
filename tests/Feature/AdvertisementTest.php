@@ -47,6 +47,8 @@ class AdvertisementTest extends TestCase
         $courseId =  factory(Advertisement::class)->create()->course_id;
 
 
+        $this->withoutExceptionHandling();
+
         $response = $this->getJson(route('advertisements.show', ['course' => $courseId]));
 
 
@@ -57,6 +59,7 @@ class AdvertisementTest extends TestCase
 
             'data' => [
                 'id',
+                'title',
                 'type',
                 'image',
                 'description',
@@ -64,8 +67,6 @@ class AdvertisementTest extends TestCase
                 'price',
                 'books_fees',
                 'min_age',
-                'level',
-                'level',
                 'mook_exam',
                 'duration',
                 'class_size',
@@ -73,7 +74,7 @@ class AdvertisementTest extends TestCase
                 'days',
                 'hours',
                 'start',
-                'time'
+                'time',
             ]
         ]);
     }
@@ -81,6 +82,7 @@ class AdvertisementTest extends TestCase
 
     public function test_store_advertismenet()
     {
+
         $this->actingAsSanctumUser();
 
         $courseId = factory(Course::class)->create()->id;
@@ -94,7 +96,7 @@ class AdvertisementTest extends TestCase
 
         $response->assertCreated();
     }
-    
+
     public function test_delete_advertismenet()
     {
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\StoreRequest;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -26,9 +29,9 @@ class UserController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        
+
         $user->token = "Bearer {$user->createToken($request->device_name)->plainTextToken}";
-        
+
         return new UserResource($user);
     }
 
@@ -49,5 +52,20 @@ class UserController extends Controller
     public function user(User $user)
     {
         return new UserResource($user);
+    }
+
+
+    public function store(StoreRequest $request)
+    {
+
+        $data =  $request->validated();
+
+        $data['password'] = bcrypt($data['password']);
+
+        $user = User::create($data);
+
+          $user->userInfo()->create($data);
+
+        return response(new UserResource($user), Response::HTTP_CREATED);
     }
 }

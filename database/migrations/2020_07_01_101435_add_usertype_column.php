@@ -15,7 +15,7 @@ class AddUsertypeColumn extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('usertype_id')->index()->nullable();
-            $table->foreign('usertype_id')->references('id')->on('user_types');
+            $table->foreign('usertype_id')->references('id')->on('user_types')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -28,7 +28,7 @@ class AddUsertypeColumn extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('usertype_id');
-            $table->dropColumn('user_types');   
+            $table->dropColumn('usertype_id');   
         });
     }
 }

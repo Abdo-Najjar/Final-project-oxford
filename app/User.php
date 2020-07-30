@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'first_name', 'last_name', 'dob', 'phone_number','usertype_id'
     ];
 
     /**
@@ -38,13 +38,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * elequant relation with user_types table
+     */
     public function usertype()
     {
         return $this->belongsTo(UserType::class);
     }
 
+    /**
+     * elequant relation with user_infos table
+     * 
+     */
     public function userInfo()
     {
-        return $this->belongsTo(UserInfo::class);
+        return $this->hasOne(UserInfo::class);
+    }
+
+
+    /**
+     * elequant relation with sections table type table
+     */
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
     }
 }

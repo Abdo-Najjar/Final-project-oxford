@@ -15,15 +15,16 @@ class CreateUserInfosTable extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('level');
+            $table->foreignId('user_id');
             $table->string('days');
-            $table->string('time');
+            $table->time('time');
             $table->string('major_of_study');
-            $table->text('how_knew_oxford');
-            $table->text('notes');
+            $table->text('how_knew_oxford')->nullable();
+            $table->text('notes')->nullable();
             $table->boolean('permission_advertisment');
             $table->string('national_number');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

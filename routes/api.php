@@ -29,15 +29,20 @@ Route::middleware('auth:sanctum')->group(function () {
     //dashbaord 
     Route::apiResource('courses', 'CourseController');
 
-
     //cruds operations
     Route::apiResource('applications', 'ApplicationController');
 
-    //cruds advertisements
-    
+    //cruds section
+    Route::apiResource('sections', 'SectionController');
+
+    //delete advertisements
     Route::delete('advertisements/{advertisement}', 'AdvertisementController@destroy')->name('advertisements.destroy');
 
+    //store advertisements
     Route::post('advertisements', 'AdvertisementController@store')->name('advertisements.store');
+
+    //store student
+    Route::post('users' , 'UserController@store')->name('users.store');
 });
 
 

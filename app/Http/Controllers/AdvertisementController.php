@@ -31,7 +31,7 @@ class AdvertisementController extends Controller
     public function store(StoreRequest $request)
     {
 
-        $advertisement = Advertisement::create($request->validated());
+        $advertisement = Advertisement::create($request->only('course_id'));
 
         $advertisement->addMediaFromRequest('image')
             ->toMediaCollection('images');
@@ -48,18 +48,6 @@ class AdvertisementController extends Controller
     public function show(Course $course)
     {
         return new CourseResource($course);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Advertisement  $advertisement
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Advertisement $advertisement)
-    {
-        //
     }
 
     /**
