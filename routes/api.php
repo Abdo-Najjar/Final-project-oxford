@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/user/{user}', 'UserController@user');
 
 
-Route::get('coursetype' , 'CourseController@index');
+Route::get('coursetype' , 'CourseTypeController@index');
 
 //guest
 Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');
