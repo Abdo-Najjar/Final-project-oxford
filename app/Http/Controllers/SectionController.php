@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Section\StoreRequest;
+use App\Http\Resources\SectionResource;
 use App\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SectionController extends Controller
 {
@@ -14,7 +17,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        return SectionResource::collection(Section::orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
 
     /**
@@ -23,9 +26,9 @@ class SectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        dd($request->validated());
     }
 
     /**
@@ -36,7 +39,7 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        //
+        return new SectionResource($section);
     }
 
     /**

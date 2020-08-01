@@ -35,7 +35,7 @@ class UserTest extends TestCase
             'permission_advertisment' => $this->faker->boolean(),
             'national_number' => random_int(1000, 50000),
             'course_type_id' => $this->faker->randomElement(CourseType::all())->id,
-            'usertype_id' => $this->faker->randomElement(UserType::all())->id
+            'usertype_id' => '1'
         ]);
 
         $response->assertCreated();

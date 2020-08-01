@@ -64,7 +64,8 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-          $user->userInfo()->create($data);
+
+        $user->userInfo()->create($data);
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }

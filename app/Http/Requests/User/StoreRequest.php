@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
             'first_name'=>'required|string|max:255' ,
             'last_name' =>'required|string|max:255',
             'password'=>'required|string|max:255|min:6',
-            'email' =>'required|email|max:255',
+            'email' =>'required|email|max:255|unique:users,email',
             'dob' =>'required|date_format:Y-m-d',
             'phone_number'=>'required|regex:/(05)[0-9]{8}/',
             'days'=>'required|string|max:255',

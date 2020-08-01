@@ -17,7 +17,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return CourseResource::collection(Course::paginate(app('pagination_value')));
+        return CourseResource::collection(Course::orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
 
     /**

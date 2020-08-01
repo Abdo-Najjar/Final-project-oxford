@@ -19,7 +19,7 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-        return AdvertisementResource::collection(Advertisement::paginate(app('pagination_value')));
+        return AdvertisementResource::collection(Advertisement::orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
 
     /**

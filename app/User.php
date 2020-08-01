@@ -11,13 +11,20 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
 
+
+    public const STUDENT_TYPE = 1;
+
+    public const TEACHER_TYPE = 2;
+
+    public const ADMIN_TYPE = 3;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'first_name', 'last_name', 'dob', 'phone_number','usertype_id'
+        'email', 'password', 'first_name', 'last_name', 'dob', 'phone_number', 'usertype_id'
     ];
 
     /**

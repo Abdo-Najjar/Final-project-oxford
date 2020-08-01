@@ -15,7 +15,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        return ApplicationResource::collection(Application::paginate(app('pagination_value')));
+        return ApplicationResource::collection(Application::orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
 
     /**

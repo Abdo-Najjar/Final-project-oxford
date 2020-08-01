@@ -18,6 +18,8 @@ class CreateSectionsTable extends Migration
             $table->string('name')->unique();
             $table->foreignId('course_id')->index();
             $table->foreignId('user_id')->index();
+            $table->date('start_at');
+            $table->date('end_at');
             $table->timestamps();
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('user_id')->references('id')->on('users');
