@@ -49,6 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
 //user profile
 Route::get('/user/{user}', 'UserController@user');
 
+
+Route::get('coursetype' , 'CourseController@index');
+
 //guest
 Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');
 

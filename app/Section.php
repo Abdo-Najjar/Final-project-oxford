@@ -14,7 +14,9 @@ class Section extends Model
 
         static::created(function($section){
 
-            dd($section->name = Carbon::now()->year.$section->course->courseType->name.$section->id);
+            $section->name = Carbon::now()->year.$section->course->courseType->name.'S'.$section->id.'C'.$section->course->id;
+
+            $section->save();
         });
     }
 

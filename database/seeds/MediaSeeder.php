@@ -14,27 +14,28 @@ class MediaSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        // //advertisement images
-        // $advertisements = Advertisement::all();
 
-        // $faker = Faker::create();
+        // advertisement images
+        $advertisements = Advertisement::all();
+
+        $faker = Faker::create();
         // $imageUrl = $faker->imageUrl(640,480, null, false);
 
-        // foreach($advertisements as $advertisement){
-        //     $advertisement->addMediaFromUrl($imageUrl)->toMediaCollection('images');
-        // }
+        $imageUrl = $faker->image('public/storage/images');
 
+        foreach ($advertisements as $advertisement) {
+            $advertisement->addMedia($imageUrl)->toMediaCollection('images');
+        }
+        
         // //course images
         // $courses = Course::all();
 
         // $faker = Faker::create();
-        // $imageUrl = $faker->imageUrl(640,480, null, false);
+        // $imageUrl = $faker->imageUrl(640, 480, null, false);
 
-        // foreach($courses as $course){
+        // foreach ($courses as $course) {
         //     $course->addMediaFromUrl($imageUrl)->toMediaCollection('images');
         // }
-
     }
 }

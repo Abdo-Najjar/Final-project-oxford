@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'type' => $this->userType->type,
             'phone_number' => $this->phone_number,
             'dob' => $this->dob,
+            'ID' => $this->ID,
             'details' => new UserInfoResource($this->userInfo),
         ];
     }

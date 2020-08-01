@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,7 +18,20 @@ class User extends Authenticatable
     public const TEACHER_TYPE = 2;
 
     public const ADMIN_TYPE = 3;
-    
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+
+            $user->idn =  Carbon::now()->year . str_pad($user->id, 4, '0', STR_PAD_LEFT);
+
+            $user->save();
+        });
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *

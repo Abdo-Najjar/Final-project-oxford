@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ApplicationResource extends JsonResource
+class CourseTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +15,5 @@ class ApplicationResource extends JsonResource
     public function toArray($request)
     {
         return parent::toArray($request);
-        // 'type'=>$this->courseType->name
-
     }
 }

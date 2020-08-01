@@ -24,7 +24,6 @@ class CreateApplicationsTable extends Migration
             $table->string('address');
             $table->date('dob');
             $table->string('phone_number');
-            $table->string('level');
             $table->string('days');
             $table->time('time');
             $table->string('major_of_study');

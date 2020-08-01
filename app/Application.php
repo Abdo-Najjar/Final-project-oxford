@@ -18,4 +18,9 @@ class Application extends Model
     {
         return strval($attribute);
     }
+    
+    public function courseType()
+    {
+        return $this->belongsTo(CourseType::class);
+    }
 }

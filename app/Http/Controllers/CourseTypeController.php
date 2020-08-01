@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CourseType;
+use App\Http\Resources\CourseTypeResource;
 use Illuminate\Http\Request;
 
 class CourseTypeController extends Controller
@@ -14,7 +15,7 @@ class CourseTypeController extends Controller
      */
     public function index()
     {
-        //
+        return new CourseTypeResource(CourseType::all());
     }
 
     /**
