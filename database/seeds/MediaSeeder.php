@@ -3,7 +3,6 @@
 use App\Advertisement;
 use App\Course;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class MediaSeeder extends Seeder
 {
@@ -19,23 +18,15 @@ class MediaSeeder extends Seeder
         // advertisement images
         $advertisements = Advertisement::all();
 
-        $faker = Faker::create();
-        // $imageUrl = $faker->imageUrl(640,480, null, false);
-
-        $imageUrl = $faker->image('public/storage/images');
-
         foreach ($advertisements as $advertisement) {
-            $advertisement->addMedia($imageUrl)->toMediaCollection('images');
+            $advertisement->addMediaFromUrl(env('APP_URL') . '/advertisements/' . strval(random_int(1, 4)) . '.jpg')->toMediaCollection('images');
         }
-        
-        // //course images
-        // $courses = Course::all();
 
-        // $faker = Faker::create();
-        // $imageUrl = $faker->imageUrl(640, 480, null, false);
+        //course images
+        $courses = Course::all();
 
-        // foreach ($courses as $course) {
-        //     $course->addMediaFromUrl($imageUrl)->toMediaCollection('images');
-        // }
+        foreach ($courses as $course) {
+            $course->addMediaFromUrl(env('APP_URL') . '/advertisements/' . strval(random_int(1, 4)) . '.jpg')->toMediaCollection('images');
+        }
     }
 }
