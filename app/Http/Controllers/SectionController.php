@@ -28,7 +28,7 @@ class SectionController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        dd($request->validated());
+        return new SectionResource(Section::create($request->validated()));
     }
 
     /**

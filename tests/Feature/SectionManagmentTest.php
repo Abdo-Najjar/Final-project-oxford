@@ -82,7 +82,7 @@ class SectionManagmentTest extends TestCase
 
         $userId = factory(User::class, [
             'usertype_id' => User::TEACHER_TYPE
-        ])->create();
+        ])->create()->id;
 
         $response = $this->postJson(route('sections.store'), [
             'course_id' => $courseId,

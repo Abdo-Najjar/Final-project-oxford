@@ -2,10 +2,21 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($section){
+
+            dd($section->name = Carbon::now()->year.$section->course->courseType->name.$section->id);
+        });
+    }
 
     /**
      * remove mass assingment 
