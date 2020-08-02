@@ -39,9 +39,39 @@ class UserTest extends TestCase
         ]);
 
         $response->assertCreated();
-        
+
         $numberOfUsers = 2;
 
-        $this->assertDatabaseCount('users' ,$numberOfUsers );
+        $this->assertDatabaseCount('users', $numberOfUsers);
+    }
+
+    public function test_list_all_teachers()
+    {
+        $this->actingAsSanctumUser();
+
+
+        factory(User::class, 20)->create([
+            'usertype_id' => User::TEACHER_TYPE
+        ]);
+
+        $response =   $this->getJson(route('teachers.index'));
+
+        $response->assertOk();
+
+        $response->assertJsonStructure([
+
+            'data' => [
+                [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'phone_number',
+                    'dob'
+                ]
+            ],
+            'meta' => [],
+            'links' => []
+
+        ]);
     }
 }

@@ -69,4 +69,10 @@ class UserController extends Controller
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
+
+
+    public function teachers()
+    {
+        return UserResource::collection(User::orderByDesc('updated_at')->where('usertype_id', User::TEACHER_TYPE)->paginate(app('pagination_value')));
+    }
 }

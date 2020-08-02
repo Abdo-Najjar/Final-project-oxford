@@ -16,7 +16,8 @@ class AdvertisementResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image(),
+            // 'image' => $this->image(),
+            'image' => env('APP_URL') . '/advertisements/' . random_int(1, 4) . '.jpg',
             'course_id' => $this->course_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

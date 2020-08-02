@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Application;
+use App\CourseType;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -33,7 +34,6 @@ class ApplicaitonTest extends TestCase
                     'address',
                     'dob',
                     'phone_number',
-                    'level',
                     'days',
                     'time',
                     'major_of_study',
@@ -41,7 +41,7 @@ class ApplicaitonTest extends TestCase
                     'notes',
                     'picture_permission',
                     'national_number',
-
+                    'type'
                 ]
             ],
             'links' => [],
@@ -65,7 +65,7 @@ class ApplicaitonTest extends TestCase
             'address' => 'Rafah Elbahra street',
             'dob' => Carbon::create(2018, 2, 1)->format('Y-m-d'),
             'phone_number' => '0454654556',
-            'level' => 'C',
+            'course_type_id' => CourseType::first()->id,
             'days' => 'Monday to Friday',
             'time' => date('H:i'),
             'major_of_study' => 'asdasdsadda',
@@ -101,7 +101,7 @@ class ApplicaitonTest extends TestCase
             'address' => '',
             'dob' => '',
             'phone_number' => '',
-            'level' => '',
+            'course_type_id'=>'',
             'days' => '',
             'time' => '',
             'major_of_study' => '',
@@ -123,7 +123,6 @@ class ApplicaitonTest extends TestCase
             ->assertJsonPath('errors.address', [$this->require_message('address')])
             ->assertJsonPath('errors.dob', [$this->require_message('date of birth')])
             ->assertJsonPath('errors.phone_number', [$this->require_message('phone number')])
-            ->assertJsonPath('errors.level', [$this->require_message('level')])
             ->assertJsonPath('errors.days', [$this->require_message('days')])
             ->assertJsonPath('errors.time', [$this->require_message('time')])
             ->assertJsonPath('errors.major_of_study', [$this->require_message('major of study')])
@@ -154,7 +153,7 @@ class ApplicaitonTest extends TestCase
                 'address',
                 'dob',
                 'phone_number',
-                'level',
+                'type',
                 'days',
                 'time',
                 'major_of_study',

@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
             'address' => 'required|string|max:255',
             'dob' => 'required|date_format:Y-m-d',
             'phone_number' => "required|string|max:255",
-            'level' => 'required|string|max:255',
+            'course_type_id' => 'required|exists:course_types,id',
             'days' => 'required|string|max:255',
             'time' => 'required|date_format:H:i',
             'major_of_study' => 'required|string|max:255',

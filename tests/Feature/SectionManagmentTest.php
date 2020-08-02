@@ -91,6 +91,18 @@ class SectionManagmentTest extends TestCase
             'end_at' => Carbon::create(2020, 3, 30)->format('Y-m-d'),
         ]);
 
-        $response->dump();
+            
+        $response->assertJsonStructure([
+            'data'=>[
+                'id',
+                'name',
+                'course_id',
+                'user_id',
+                'start_at',
+                'end_at'
+            ]
+        ]);
+
+        $response->assertCreated();
     }
 }

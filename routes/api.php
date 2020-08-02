@@ -43,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //store student
     Route::post('users' , 'UserController@store')->name('users.store');
+
+    Route::get('teachers' , 'UserController@teachers')->name('teachers.index');
 });
 
 
