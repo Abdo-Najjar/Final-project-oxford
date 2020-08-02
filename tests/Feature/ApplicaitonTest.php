@@ -27,6 +27,7 @@ class ApplicaitonTest extends TestCase
         $response->assertJsonStructure([
             'data' => [
                 [
+                    'id',
                     'first_name',
                     'last_name',
                     'gender',
@@ -41,6 +42,7 @@ class ApplicaitonTest extends TestCase
                     'notes',
                     'picture_permission',
                     'national_number',
+                    'course_type_id',
                     'type'
                 ]
             ],
@@ -146,6 +148,7 @@ class ApplicaitonTest extends TestCase
         $response->assertJsonStructure([
 
             'data' => [
+                'id',
                 'first_name',
                 'gender',
                 'last_name',
@@ -161,6 +164,7 @@ class ApplicaitonTest extends TestCase
                 'notes',
                 'picture_permission',
                 'national_number',
+                'course_type_id'
             ]
 
         ]);

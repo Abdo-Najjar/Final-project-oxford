@@ -17,6 +17,7 @@ class ApplicationResource extends JsonResource
         // return parent::toArray($request);
 
         return [
+            'id'=>$this->id,
             'first_name' =>$this->first_name,
             'last_name' =>$this->last_name,
             'gender' =>$this->gender,
@@ -31,6 +32,7 @@ class ApplicationResource extends JsonResource
             'notes' =>$this->notes,
             'picture_permission' =>$this->picture_permission,
             'national_number' =>$this->national_number,
+            'course_type_id'=>$this->course_type_id,
             'type' => $this->courseType->name
 
         ];
