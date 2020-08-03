@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Section\StoreRequest;
+use App\Http\Requests\Section\UpdateRequest;
 use App\Http\Resources\SectionResource;
 use App\Section;
+use App\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class SectionController extends Controller
@@ -49,9 +53,12 @@ class SectionController extends Controller
      * @param  \App\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(UpdateRequest $request, Section $section)
     {
-        //
+
+        $section->update($request->validated());
+
+        return response()->noContent();
     }
 
     /**
@@ -62,6 +69,53 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+
+        $section->delete();
+
+        return response()->noContent();
+    }
+
+    /**
+     * assgin student (User) to class (Section)
+     *
+     * @param \App\Section $section
+     * @param \App\User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function assign(Section $section, User $user)
+    {
+
+        try {
+
+            $section->assignStudent($user);
+        } catch (Exception $ex) {
+
+            return response()->json(['message' => $ex->getMessage()])->setStatusCode(Response::HTTP_EXPECTATION_FAILED);
+        }
+
+        return response()->noContent();
+    }
+
+    /**
+     * fire student (User) from class (Section)
+     *
+     * @param \App\Section $section
+     * @param \App\User $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fire(Section $section, User $user)
+    {
+
+        try {
+
+            $section->fireStudent($user);
+        } catch (Exception $ex) {
+
+            return response()->json(['message' => $ex->getMessage()])->setStatusCode(Response::HTTP_EXPECTATION_FAILED);
+        }
+
+        return response()->noContent();
     }
 }
