@@ -80,9 +80,9 @@ class SectionManagmentTest extends TestCase
 
         $courseId = factory(Course::class)->create()->id;
 
-        $userId = factory(User::class, [
+        $userId = factory(User::class,)->create([
             'usertype_id' => User::TEACHER_TYPE
-        ])->create()->id;
+        ])->id;
 
         $response = $this->postJson(route('sections.store'), [
             'course_id' => $courseId,
@@ -91,9 +91,9 @@ class SectionManagmentTest extends TestCase
             'end_at' => Carbon::create(2020, 3, 30)->format('Y-m-d'),
         ]);
 
-            
+
         $response->assertJsonStructure([
-            'data'=>[
+            'data' => [
                 'id',
                 'name',
                 'course_id',
@@ -104,5 +104,98 @@ class SectionManagmentTest extends TestCase
         ]);
 
         $response->assertCreated();
+    }
+
+
+    public function test_admin_could_update_section()
+    {
+
+        $this->actingAsSanctumUser();
+
+        $courseId = factory(Course::class)->create()->id;
+
+        $userId = factory(User::class)->create([
+            'usertype_id' => User::TEACHER_TYPE
+        ])->id;
+
+        $sectionId = factory(Section::class)->create()->id;
+
+        $response = $this->patchJson(route('sections.update', $sectionId), [
+            'course_id' => $courseId,
+            'user_id' => $userId,
+            'start_at' => Carbon::create(2020, 3, 21)->format('Y-m-d'),
+            'end_at' => Carbon::create(2020, 3, 30)->format('Y-m-d'),
+        ]);
+
+        $response->assertNoContent();
+    }
+
+
+
+
+
+
+    public function test_admin_could_delete_section()
+    {
+
+        $this->actingAsSanctumUser();
+
+        $sectionId = factory(Section::class)->create()->id;
+
+        $response =  $this->deleteJson(route('sections.destroy', $sectionId));
+
+        $response->assertNoContent();
+
+        $this->assertDatabaseMissing('sections', ['id' => $sectionId]);
+    }
+
+
+
+    public function test_assign_student__to_class_endpoint()
+    {
+
+        $this->actingAsSanctumUser();
+
+        $section = factory(Section::class)->create();
+
+        $user = factory(User::class)->create([
+            'usertype_id' => User::STUDENT_TYPE
+        ]);
+
+        $response =  $this->putJson(route('sections.assign', ['section' => $section, 'user' => $user]));
+
+        $response->assertNoContent();
+
+        $numberOfAssignedUsers = 1;
+
+        $this->assertDatabaseCount('section_user', $numberOfAssignedUsers);
+    }
+
+
+
+    public function test_fire_student_from_class_endpoint()
+    {
+
+        $this->actingAsSanctumUser();
+
+        $section = factory(Section::class)->create();
+
+        $user = factory(User::class)->create([
+            'usertype_id' => User::STUDENT_TYPE
+        ]);
+
+        $this->assertDatabaseCount('section_user', ZLIB_OK);
+
+
+        //assgin user throw elequant relation
+        $section->students()->sync($user->id);
+
+        $response =  $this->deleteJson(route('sections.fire', ['section' => $section, 'user' => $user]));
+
+        $response->assertNoContent();
+
+        $numberOfAssignedUsers = 0;
+
+        $this->assertDatabaseCount('section_user', $numberOfAssignedUsers);
     }
 }
