@@ -25,6 +25,8 @@ class UserResource extends JsonResource
             'type' => $this->userType->type,
             'phone_number' => $this->phone_number,
             'dob' => $this->dob,
+            'address'=>$this->address,
+            'gender'=>$this->gender,
             'idn' => $this->when(Request::segment(2)!='teachers' , $this->idn) ,
             'details' => $this->when(Request::segment(2) != 'teachers' ,new UserInfoResource($this->userInfo)) ,
         ];

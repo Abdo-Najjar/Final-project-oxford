@@ -38,7 +38,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'first_name', 'last_name', 'dob', 'phone_number', 'usertype_id'
+        'email', 'password', 'first_name', 'last_name', 'dob', 'phone_number', 'usertype_id','gender','address'
     ];
 
     /**
@@ -78,10 +78,21 @@ class User extends Authenticatable
 
 
     /**
-     * elequant relation with sections table type table
+     * elequant relation with sections table type table for teacher
      */
     public function sections()
     {
         return $this->hasMany(Section::class);
+    }   
+
+
+    /**
+     * elequant relation with sections table type table for teacher
+     */
+    public function classes()
+    {
+       return $this->belongsToMany(Section::class); 
     }
+
+    
 }
