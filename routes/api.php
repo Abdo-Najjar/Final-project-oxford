@@ -36,10 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('sections', 'SectionController');
 
     //assign student to class (Section)
-    Route::put('sections/{section}/assign/{user}' , 'SectionController@assign')->name('sections.assign');
+    Route::put('sections/{section}/assign/{user}/user' , 'SectionController@assign')->name('sections.assign');
 
     //fire fire from class (Section)
-    Route::delete('sections/{section}/fire/{user}' , 'SectionController@fire')->name('sections.fire');
+    Route::delete('sections/{section}/fire/{user}/user' , 'SectionController@fire')->name('sections.fire');
 
     //delete advertisements
     Route::delete('advertisements/{advertisement}', 'AdvertisementController@destroy')->name('advertisements.destroy');
