@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Http\Requests\Course\StoreRequest;
+use App\Http\Requests\Course\UpdateRequest;
 use App\Http\Resources\CourseResource;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CourseController extends Controller
@@ -54,7 +54,7 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(UpdateRequest $request, Course $course)
     {
         if ($request->hasFile('image')) {
 
