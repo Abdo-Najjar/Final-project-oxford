@@ -28,6 +28,8 @@ $factory->define(User::class, function (Faker $faker) {
         'last_name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'dob' => $faker->date(),
+        'gender'=>random_int(1,2),
+        'address'=>$faker->city,
         'email_verified_at' => now(),
         'usertype_id' => $faker->randomElement($types),
         'phone_number'=>$faker->phoneNumber,
