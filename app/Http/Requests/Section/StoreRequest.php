@@ -26,8 +26,8 @@ class StoreRequest extends FormRequest
         return [
          'course_id'=>'required|exists:courses,id',
          'user_id'=>'required|exists:users,id',
-         'start_at'=>'date|before_or_equal:end_at',
-         'end_at'=>'date|after_or_equal:start_at'
+         'start_at'=>'required|before_or_equal:end_at',
+         'end_at'=>'required||after_or_equal:start_at'
         ];
     }
 }
