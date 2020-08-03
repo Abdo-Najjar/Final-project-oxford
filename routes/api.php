@@ -35,6 +35,12 @@ Route::middleware('auth:sanctum')->group(function () {
     //cruds section
     Route::apiResource('sections', 'SectionController');
 
+    //assign student to class (Section)
+    Route::put('sections/{section}/assign/{user}' , 'SectionController@assign')->name('sections.assign');
+
+    //fire fire from class (Section)
+    Route::delete('sections/{section}/fire/{user}' , 'SectionController@fire')->name('sections.fire');
+
     //delete advertisements
     Route::delete('advertisements/{advertisement}', 'AdvertisementController@destroy')->name('advertisements.destroy');
 
@@ -44,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //store student
     Route::post('users' , 'UserController@store')->name('users.store');
 
+    //get teachers
     Route::get('teachers' , 'UserController@teachers')->name('teachers.index');
 });
 
@@ -51,12 +58,14 @@ Route::middleware('auth:sanctum')->group(function () {
 //user profile
 Route::get('/user/{user}', 'UserController@user');
 
-
+//get coursetypes
 Route::get('coursetype' , 'CourseTypeController@index');
 
 //guest
 Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');
 
+//show course details for that advertisement
 Route::get('advertisements/{course}/course', 'AdvertisementController@show')->name('advertisements.show');
 
+//store an application
 Route::post('applications', 'ApplicationController@store')->name('applications.store');
