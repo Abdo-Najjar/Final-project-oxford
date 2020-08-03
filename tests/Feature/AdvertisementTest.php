@@ -108,6 +108,6 @@ class AdvertisementTest extends TestCase
 
         $response->assertNoContent();
 
-        $this->assertCount(0, Advertisement::all());
+        $this->assertCount(ZLIB_OK, Advertisement::all());
     }
 }

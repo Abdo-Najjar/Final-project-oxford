@@ -17,10 +17,13 @@ class UserTest extends TestCase
 
     public function test_loggin_user_can_store_student()
     {
+        $this->withoutExceptionHandling();
 
         $this->actingAsSanctumUser();
 
         $response = $this->postJson(route('users.store'), [
+            'address'=>$this->faker->word(),
+            'gender' => 1,
             'first_name' => $this->faker->word,
             'password' => $this->faker->paragraph(),
             'last_name' => $this->faker->word(),
@@ -66,7 +69,9 @@ class UserTest extends TestCase
                     'first_name',
                     'last_name',
                     'phone_number',
-                    'dob'
+                    'dob',
+                    'address',
+                    'gender'
                 ]
             ],
             'meta' => [],

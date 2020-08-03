@@ -18,7 +18,6 @@ class CourseManagementTest extends TestCase
   public function test_loggin_user_could_see_courses()
   {
 
-    $this->withoutExceptionHandling();
     //acting as login user from token based auth      
     $this->actingAsSanctumUser();
 
@@ -217,15 +216,15 @@ class CourseManagementTest extends TestCase
 
   public function test_logged_in_user_can_delete_course()
   {
-      
-    $this->actingAsSanctumUser();    
+
+    $this->actingAsSanctumUser();
 
     $courseId = factory(Course::class)->create();
 
-    $response =  $this->deleteJson(route('courses.destroy' , $courseId));
+    $response =  $this->deleteJson(route('courses.destroy', $courseId));
 
     $response->assertNoContent();
-
-
+    
+    $this->assertDatabaseCount('courses' , ZLIB_OK);
   }
 }
