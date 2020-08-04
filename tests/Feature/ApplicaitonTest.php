@@ -66,7 +66,7 @@ class ApplicaitonTest extends TestCase
             'gender' => '2',
             'address' => 'Rafah Elbahra street',
             'dob' => Carbon::create(2018, 2, 1)->format('Y-m-d'),
-            'phone_number' => '0454654556',
+            'phone_number' => '0599541011',
             'course_type_id' => CourseType::first()->id,
             'days' => 'Monday to Friday',
             'time' => date('H:i'),
