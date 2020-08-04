@@ -75,4 +75,10 @@ class UserController extends Controller
     {
         return UserResource::collection(User::orderByDesc('updated_at')->where('usertype_id', User::TEACHER_TYPE)->paginate(app('pagination_value')));
     }
+
+
+    public function students()
+    {
+        return UserResource::collection(User::orderByDesc('updated_at')->where('usertype_id', User::STUDENT_TYPE)->paginate(app('pagination_value')));
+    }
 }

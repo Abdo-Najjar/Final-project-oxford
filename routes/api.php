@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //get teachers
     Route::get('teachers' , 'UserController@teachers')->name('teachers.index');
 
+    Route::get('students' , 'UserController@students')->name('students.index');
     //fees
     // Route::put('fees' , )
 });
