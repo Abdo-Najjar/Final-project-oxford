@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class UserInfo extends Model
@@ -20,5 +21,11 @@ class UserInfo extends Model
     public function courseType()
     {
         return $this->belongsTo(CourseType::class);
+    }
+
+
+    public function getTimeAttribute($value)
+    {
+        return Carbon::make($value)->format('g:i');
     }
 }

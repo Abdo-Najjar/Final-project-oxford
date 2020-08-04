@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
+
+
 
     protected $guarded = [];
 
@@ -18,9 +21,14 @@ class Application extends Model
     {
         return strval($attribute);
     }
-    
+
     public function courseType()
     {
         return $this->belongsTo(CourseType::class);
+    }
+
+    public function getTimeAttribute($value)
+    {
+        return Carbon::make($value)->format('g:i');
     }
 }
