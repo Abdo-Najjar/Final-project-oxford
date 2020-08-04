@@ -32,7 +32,7 @@ $factory->define(User::class, function (Faker $faker) {
         'address'=>$faker->city,
         'email_verified_at' => now(),
         'usertype_id' => $faker->randomElement($types),
-        'phone_number'=>$faker->phoneNumber,
+        'phone_number'=>"059".random_int(0000000,9999999),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
