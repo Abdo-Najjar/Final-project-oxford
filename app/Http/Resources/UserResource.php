@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Request;
 use SebastianBergmann\CodeUnitReverseLookup\Wizard;
@@ -25,10 +26,10 @@ class UserResource extends JsonResource
             'type' => $this->userType->type,
             'phone_number' => $this->phone_number,
             'dob' => $this->dob,
-            'address'=>$this->address,
-            'gender'=>$this->gender,
-            'idn' => $this->when(Request::segment(2)!='teachers' , $this->idn) ,
-            'details' => $this->when(Request::segment(2) != 'teachers' ,new UserInfoResource($this->userInfo)) ,
+            'address' => $this->address,
+            'gender' => $this->gender,
+            'idn' => $this->when(Request::segment(2) != 'teachers', $this->idn),
+            'details' => $this->when(Request::segment(2) != 'teachers' and $this->usertype_id == User::STUDENT_TYPE, new UserInfoResource($this->userInfo)),
         ];
     }
 }
