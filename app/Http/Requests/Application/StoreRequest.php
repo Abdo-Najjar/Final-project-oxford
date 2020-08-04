@@ -30,7 +30,7 @@ class StoreRequest extends FormRequest
             'email' => 'required|string|max:255|email',
             'address' => 'required|string|max:255',
             'dob' => 'required|date_format:Y-m-d',
-            'phone_number' => "required|string|max:255",
+            'phone_number'=>'required|regex:/(05)[0-9]{8}/|size:10',
             'course_type_id' => 'required|exists:course_types,id',
             'days' => 'required|string|max:255',
             'time' => 'required|date_format:H:i',
