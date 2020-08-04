@@ -25,12 +25,11 @@ Route::middleware('auth:sanctum')->group(function () {
     //logout from all devices
     Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
 
-
     //dashbaord 
     Route::apiResource('courses', 'CourseController');
 
     //cruds operations
-    Route::apiResource('applications', 'ApplicationController');
+    Route::apiResource('applications', 'ApplicationController')->except('update');
 
     //cruds section
     Route::apiResource('sections', 'SectionController');
@@ -52,11 +51,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //get teachers
     Route::get('teachers' , 'UserController@teachers')->name('teachers.index');
+
+    //fees
+    // Route::put('fees' , )
 });
 
 
 //user profile
-Route::get('/user/{user}', 'UserController@user');
+Route::get('/users/{user}', 'UserController@user');
 
 //get coursetypes
 Route::get('coursetype' , 'CourseTypeController@index');
