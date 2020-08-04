@@ -29,6 +29,6 @@ class Application extends Model
 
     public function getTimeAttribute($value)
     {
-        return Carbon::make($value)->format('g:i');
+        return Carbon::make($value)->format('H:i');
     }
 }
