@@ -32,6 +32,7 @@ class SectionManagmentTest extends TestCase
             'data' => [
                 [
                     'id',
+                    'type',
                     'name',
                     'course_id',
                     'user_id',
@@ -61,6 +62,7 @@ class SectionManagmentTest extends TestCase
             'data' => [
                 'id',
                 'name',
+                'type',
                 'course_id',
                 'user_id',
                 'end_at',
