@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Application;
 use App\Section;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,7 +31,7 @@ class HomeTest extends TestCase
             'user_id'=> $this->faker->randomElement($teachers)
         ]);
 
-
+        factory(Application::class , ZLIB_FULL_FLUSH);
 
         $response =  $this->getJson(route('dashboard.home'));
 
@@ -40,7 +41,8 @@ class HomeTest extends TestCase
             'data'=>[
                 'students'=>ZLIB_FULL_FLUSH,
                 'teachers'=>ZLIB_FULL_FLUSH,
-                'sections'=>ZLIB_FULL_FLUSH
+                'sections'=>ZLIB_FULL_FLUSH,
+                'applications'=>ZLIB_FULL_FLUSH
             ]
         ]);
     }
