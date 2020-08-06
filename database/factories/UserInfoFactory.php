@@ -9,15 +9,15 @@ use Faker\Generator as Faker;
 
 $factory->define(UserInfo::class, function (Faker $faker) {
 
-    $users = User::all();
+    $users = User::where('usertype_id' , User::STUDENT_TYPE)->get();
     
     return [
         'user_id' => $faker->randomElement($users),
         'course_type_id' => $faker->randomElement(CourseType::all()),
         'days' => $faker->sentence(5),
         'time' => $faker->time,
-        'major_of_study' => $faker->text(),
-        'how_knew_oxford' => $faker->text(),
+        'major_of_study' => $faker->word(),
+        'how_knew_oxford' => $faker->sentence(15),
         'notes' => $faker->text(),
         'permission_advertisment' => $faker->boolean(),
         'national_number' =>  strval(random_int(10000, 155555)),
