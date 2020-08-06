@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Application;
 use App\Http\Resources\GeneralResource;
 use App\Section;
 use App\User;
@@ -18,12 +19,15 @@ class HomeController extends Controller
 
         $teachersCount = User::where('usertype_id' , User::TEACHER_TYPE)->count();
 
+        $applicationsCount = Application::count();
+
         $sectionsCount = Section::count();
 
         return new GeneralResource([
             'students'=>$studentsCount,
             'teachers'=>$teachersCount,
-            'sections'=>$sectionsCount
+            'sections'=>$sectionsCount,
+            'applications' =>$applicationsCount
         ]);
     }
 
