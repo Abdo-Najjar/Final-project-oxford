@@ -30,7 +30,8 @@ class UserResource extends JsonResource
             'address' => $this->address,
             'gender' => $this->gender,
             'idn' => $this->when(Request::segment(2) != 'teachers', $this->idn),
-            'details' => $this->when(Request::segment(2) != 'teachers' and $this->usertype_id == User::STUDENT_TYPE, new UserInfoResource($this->userInfo)),
+            'details'=> new UserInfoResource($this->userInfo)
+            // 'details' => $this->when(Request::segment(2) != 'teachers' and $this->usertype_id == User::STUDENT_TYPE, new UserInfoResource($this->userInfo)),
         ];
     }
 }
