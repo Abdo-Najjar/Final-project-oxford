@@ -29,7 +29,7 @@ class FeeTest extends TestCase
         //assign student inside course
         $section->assignStudent($student);
 
-        $response =  $this->put(route('fee.addFee', ['user' => $student->id, 'section' => $section->id]), [
+        $response =  $this->put(route('fee.store', ['user' => $student->id, 'section' => $section->id]), [
 
             'book_fees' => ZLIB_ENCODING_GZIP,
             'course_fees' => ZLIB_ENCODING_DEFLATE
@@ -60,7 +60,7 @@ class FeeTest extends TestCase
             'usertype_id' => User::STUDENT_TYPE
         ]);
 
-        $response =  $this->put(route('fee.addFee', ['user' => $student->id, 'section' => $section->id]), [
+        $response =  $this->put(route('fee.store', ['user' => $student->id, 'section' => $section->id]), [
 
             'book_fees' => ZLIB_ENCODING_GZIP,
             'course_fees' => ZLIB_ENCODING_DEFLATE
@@ -73,6 +73,42 @@ class FeeTest extends TestCase
         $this->assertDatabaseMissing('section_user', [
             'course_fees' => ZLIB_ENCODING_GZIP,
             'course_fees' => ZLIB_ENCODING_DEFLATE
+        ]);
+    }
+
+
+    public function test_show_payment_details()
+    {
+
+
+        $this->actingAsSanctumUser();
+
+        //create new section
+        $section = factory(Section::class)->create();
+
+        //create student
+        $student = factory(User::class)->create([
+            'usertype_id' => User::STUDENT_TYPE
+        ]);
+
+        //assign student inside course
+        $section->assignStudent($student);
+
+        //add payment for student
+        $this->put(route('fee.store', ['user' => $student->id, 'section' => $section->id]), [
+
+            'book_fees' => ZLIB_ENCODING_GZIP,
+            'course_fees' => ZLIB_ENCODING_DEFLATE
+
+        ]);
+
+
+        $response = $this->getJson(route('fee.show', ['user' => $student->id, 'section' => $section->id]));
+
+
+        $response->assertJsonFragment([
+            'book_fees' =>number_format(ZLIB_ENCODING_GZIP,1) ,
+            'course_fees' =>number_format( ZLIB_ENCODING_DEFLATE,1)
         ]);
     }
 }

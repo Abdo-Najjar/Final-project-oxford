@@ -61,7 +61,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('students/{courseType}/coursetype', 'UserController@studentsInCourseType')->name('students.studentsInCourseType');
   
     //fees
-    Route::put('fees/{user}/users/{section}/sections' ,'FeeController@addFee')->name('fee.addFee');
+    Route::put('fees/{user}/users/{section}/sections' ,'FeeController@store')->name('fee.store');
+
+    Route::get('fees/{user}/users/{section}/sections' ,'FeeController@show')->name('fee.show');
 });
 
 
