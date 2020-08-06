@@ -13,7 +13,11 @@ abstract class TestCase extends BaseTestCase
 
     public function actingAsSanctumUser()
     {
-      return  Sanctum::actingAs(factory(User::class)->create());
+      return  Sanctum::actingAs(factory(User::class)->create([
+
+        'usertype_id'=>User::ADMIN_TYPE
+
+      ]));
     }
 
     public function require_message($field)
