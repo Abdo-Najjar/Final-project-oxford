@@ -18,9 +18,11 @@ Route::post('/sanctum/token', 'UserController@apiLogin');
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    //home page data for admin
+    Route::get('dashboard/home', 'HomeController@home')->name('dashboard.home');
+
     //logout 
     Route::post('/sanctum/logout', 'UserController@logout');
-
 
     //logout from all devices
     Route::post('/sanctum/logout/devices', 'UserController@logoutFromAllDevices');
