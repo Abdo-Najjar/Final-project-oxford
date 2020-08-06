@@ -35,10 +35,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('sections', 'SectionController');
 
     //assign student to class (Section)
-    Route::put('sections/{section}/assign/{user}/user' , 'SectionController@assign')->name('sections.assign');
+    Route::put('sections/{section}/assign/{user}/user', 'SectionController@assign')->name('sections.assign');
 
     //fire fire from class (Section)
-    Route::delete('sections/{section}/fire/{user}/user' , 'SectionController@fire')->name('sections.fire');
+    Route::delete('sections/{section}/fire/{user}/user', 'SectionController@fire')->name('sections.fire');
 
     //delete advertisements
     Route::delete('advertisements/{advertisement}', 'AdvertisementController@destroy')->name('advertisements.destroy');
@@ -47,12 +47,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('advertisements', 'AdvertisementController@store')->name('advertisements.store');
 
     //store student
-    Route::post('users' , 'UserController@store')->name('users.store');
+    Route::post('users', 'UserController@store')->name('users.store');
 
     //get teachers
-    Route::get('teachers' , 'UserController@teachers')->name('teachers.index');
+    Route::get('teachers', 'UserController@teachers')->name('teachers.index');
 
-    Route::get('students' , 'UserController@students')->name('students.index');
+    //get students
+    Route::get('students', 'UserController@students')->name('students.index');
+
+    //get students related with a classtype
+    Route::get('students/{courseType}/coursetype', 'UserController@studentsInCourseType')->name('students.studentsInCourseType');
     //fees
     // Route::put('fees' , )
 });
@@ -62,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/users/{user}', 'UserController@user');
 
 //get coursetypes
-Route::get('coursetype' , 'CourseTypeController@index');
+Route::get('coursetype', 'CourseTypeController@index');
 
 //guest
 Route::get('advertisements', 'AdvertisementController@index')->name('advertisements.index');

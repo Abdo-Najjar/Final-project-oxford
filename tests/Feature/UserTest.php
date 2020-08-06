@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\CourseType;
 use App\User;
+use App\UserInfo;
 use App\UserType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -22,7 +23,7 @@ class UserTest extends TestCase
         $this->actingAsSanctumUser();
 
         $response = $this->postJson(route('users.store'), [
-            'address'=>$this->faker->word(),
+            'address' => $this->faker->word(),
             'gender' => 1,
             'first_name' => $this->faker->word,
             'password' => $this->faker->paragraph(),
@@ -61,6 +62,8 @@ class UserTest extends TestCase
 
         $response->assertOk();
 
+        $response->assertJsonCount(ZLIB_FULL_FLUSH);
+
         $response->assertJsonStructure([
 
             'data' => [
@@ -78,5 +81,45 @@ class UserTest extends TestCase
             'links' => []
 
         ]);
+    }
+
+
+
+    public function test_get_all_students_in_course_type()
+    {
+        $this->actingAsSanctumUser();
+
+        $student =  factory(User::class)->create([
+            'usertype_id' => User::STUDENT_TYPE
+        ]);
+
+        factory(UserInfo::class)->create([
+            'user_id' => $student->id
+        ]);
+
+        // dd(User::find(ZLIB_NEED_DICT)->userInfo);
+        $courseTypeId = User::find(ZLIB_NEED_DICT)->userInfo->courseType->id;
+
+        $response =  $this->getJson(route('students.studentsInCourseType', $courseTypeId));
+
+        $response->assertJsonStructure([
+
+            'data' => [
+                [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'phone_number',
+                    'dob',
+                    'address',
+                    'gender'
+                ]
+            ],
+            'meta' => [],
+            'links' => []
+
+        ]);
+
+        $response->assertJsonCount(ZLIB_FULL_FLUSH);
     }
 }
