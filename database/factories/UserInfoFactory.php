@@ -17,7 +17,7 @@ $factory->define(UserInfo::class, function (Faker $faker) {
         'days' => $faker->sentence(5),
         'time' => $faker->time,
         'major_of_study' => $faker->word(),
-        'how_knew_oxford' => $faker->sentence(15),
+        'how_knew_oxford' => $faker->sentence(3),
         'notes' => $faker->text(),
         'permission_advertisment' => $faker->boolean(),
         'national_number' =>  strval(random_int(10000, 155555)),
