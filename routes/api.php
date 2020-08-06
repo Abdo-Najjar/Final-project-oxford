@@ -59,8 +59,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //get students related with a classtype
     Route::get('students/{courseType}/coursetype', 'UserController@studentsInCourseType')->name('students.studentsInCourseType');
+  
     //fees
-    // Route::put('fees' , )
+    Route::put('fees/{user}/users/{section}/sections' ,'FeeController@addFee')->name('fee.addFee');
 });
 
 

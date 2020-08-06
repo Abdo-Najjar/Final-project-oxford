@@ -46,7 +46,7 @@ class Section extends Model
     
     public function students()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot(['book_fees' , 'course_fees'])->withTimestamps();
     }
 
     /**

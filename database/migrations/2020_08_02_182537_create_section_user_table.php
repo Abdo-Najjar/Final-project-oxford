@@ -17,6 +17,8 @@ class CreateSectionUserTable extends Migration
             $table->id();
             $table->foreignId('user_id')->index();
             $table->foreignId('section_id')->index();
+            $table->double('book_fees')->default(ZLIB_OK);
+            $table->double('course_fees')->default(ZLIB_OK);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
