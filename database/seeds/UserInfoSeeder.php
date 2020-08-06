@@ -12,6 +12,6 @@ class UserInfoSeeder extends Seeder
      */
     public function run()
     {
-        factory(UserInfo::class, 10)->create();
+        factory(UserInfo::class, 1000)->create();
     }
 }

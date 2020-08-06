@@ -31,6 +31,8 @@ class UserSeeder extends Seeder
         ]);
 
 
-        factory(User::class, 50)->create();
+        factory(User::class, 10)->create([
+            'usertype_id'=>User::STUDENT_TYPE
+        ]);
     }
 }
