@@ -31,7 +31,7 @@ class HomeTest extends TestCase
             'user_id'=> $this->faker->randomElement($teachers)
         ]);
 
-        factory(Application::class , ZLIB_FULL_FLUSH);
+        factory(Application::class , ZLIB_FULL_FLUSH)->create();
 
         $response =  $this->getJson(route('dashboard.home'));
 
@@ -45,5 +45,6 @@ class HomeTest extends TestCase
                 'applications'=>ZLIB_FULL_FLUSH
             ]
         ]);
+
     }
 }
