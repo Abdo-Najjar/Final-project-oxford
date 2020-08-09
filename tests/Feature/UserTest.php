@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\CourseType;
+use App\Section;
 use App\User;
 use App\UserInfo;
 use App\UserType;
@@ -121,5 +122,43 @@ class UserTest extends TestCase
         ]);
 
         $response->assertJsonCount(ZLIB_FULL_FLUSH);
+    }
+
+
+
+    public function test_get_all_students_in_section()
+    {
+        $this->actingAsSanctumUser();
+
+        $section = factory(Section::class)->create();
+
+        $students = factory(User::class, 20)->create([
+            'usertype_id' => User::STUDENT_TYPE
+        ]);
+
+        $students->each(function ($student) use ($section) {
+
+            $section->assignStudent($student);
+        });
+
+
+        $response =  $this->getJson(route('students.studentsInSection', $section->id));
+
+        $response->assertJsonStructure([
+
+            'data' => [
+                [
+                    'id',
+                    'first_name',
+                    'last_name',
+                    'phone_number',
+                    'dob',
+                    'address',
+                    'gender'
+                ]
+            ],
+            'meta' => [],
+            'links' => []
+        ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CourseType;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Resources\UserResource;
+use App\Section;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -82,13 +83,19 @@ class UserController extends Controller
     {
         return UserResource::collection(User::orderByDesc('updated_at')->where('usertype_id', User::STUDENT_TYPE)->paginate(app('pagination_value')));
     }
-    
+
     public function studentsInCourseType(CourseType $courseType)
     {
-        
+
         return  UserResource::collection(User::whereHas('userInfo', function ($userInfo) use ($courseType) {
 
             $userInfo->where('course_type_id', $courseType->id);
         })->paginate(app('pagination_value')));
+    }
+
+
+    public function studentsInSection(Section $section)
+    {
+        return  UserResource::collection( $section->students()->paginate(app('pagination_value')));
     }
 }

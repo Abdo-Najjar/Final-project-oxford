@@ -34,7 +34,5 @@ class FeeController extends Controller
         }
 
         return new GeneralResource($section->students()->wherePivot('user_id', $user->id)->first()->pivot);
-
-        // return $section->students()->wherePivot('user_id', $user->id)->first()->pivot;
     }
 }

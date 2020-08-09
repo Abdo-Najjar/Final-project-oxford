@@ -58,12 +58,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('students', 'UserController@students')->name('students.index');
 
     //get students related with a classtype
-    Route::get('students/{courseType}/coursetype', 'UserController@studentsInCourseType')->name('students.studentsInCourseType');
-  
-    //fees
-    Route::put('fees/{user}/users/{section}/sections' ,'FeeController@store')->name('fee.store');
+    Route::get('students/{courseType}/coursetypes', 'UserController@studentsInCourseType')->name('students.studentsInCourseType');
 
-    Route::get('fees/{user}/users/{section}/sections' ,'FeeController@show')->name('fee.show');
+    //get students related with a section
+    Route::get('students/{section}/sections', 'UserController@studentsInSection')->name('students.studentsInSection');
+
+    //store fees
+    Route::put('fees/{user}/users/{section}/sections', 'FeeController@store')->name('fee.store');
+
+    //show fee
+    Route::get('fees/{user}/users/{section}/sections', 'FeeController@show')->name('fee.show');
+
+    //store evaluation for student
+    Route::put('evaluations/{user}/students/{section}/sections', 'EvaluationController@evaluateStudent')->name('evaluations.evaluateStudent');
+    Route::get('evaluations/{user}/students/{section}/sections', 'EvaluationController@showStudentEvaluation')->name('evaluations.evaluateStudent');
 });
 
 
