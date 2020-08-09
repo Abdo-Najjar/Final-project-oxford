@@ -55,11 +55,4 @@ class Course extends Model implements HasMedia
         return $this->belongsTo(CourseType::class);
     }
 
-    /**
-     * elequant relation with sections table type table
-     */
-    public function sections()
-    {
-        return $this->hasMany(Section::class);
-    }
 }

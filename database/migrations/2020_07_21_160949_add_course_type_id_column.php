@@ -18,6 +18,10 @@ class AddCourseTypeIdColumn extends Migration
             $table->foreign('course_type_id')->references('id')->on('course_types');
         });
 
+        Schema::table('sections', function (Blueprint $table) {
+            $table->foreignId('course_type_id')->index()->nullable();
+            $table->foreign('course_type_id')->references('id')->on('course_types');
+        });
 
         Schema::table('applications', function (Blueprint $table) {
             $table->foreignId('course_type_id')->index()->nullable();
@@ -48,6 +52,11 @@ class AddCourseTypeIdColumn extends Migration
         });
 
         Schema::table('user_infos', function (Blueprint $table) {
+            $table->dropForeign('course_type_id');
+            $table->dropColumn('course_type_id');   
+        });
+
+        Schema::table('sections', function (Blueprint $table) {
             $table->dropForeign('course_type_id');
             $table->dropColumn('course_type_id');   
         });

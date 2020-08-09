@@ -14,7 +14,7 @@ class Section extends Model
 
         static::created(function ($section) {
 
-            $section->name = Carbon::now()->year . $section->course->courseType->name . 'S' . $section->id . 'C' . $section->course->id;
+            $section->name = Carbon::now()->year . $section->courseType->name . 'S' . $section->id . 'C' . $section->courseType->id;
 
             $section->save();
         });
@@ -30,9 +30,9 @@ class Section extends Model
     /**
      * elequant relation with course 
      */
-    public function course()
+    public function courseType()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(CourseType::class);
     }
 
     /**

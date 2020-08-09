@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Course;
+use App\CourseType;
 use App\Section;
 use App\User;
 use Carbon\Carbon;
@@ -34,7 +34,7 @@ class SectionManagmentTest extends TestCase
                     'id',
                     'type',
                     'name',
-                    'course_id',
+                    'course_type_id',
                     'user_id',
                     'end_at',
                     'start_at'
@@ -63,7 +63,7 @@ class SectionManagmentTest extends TestCase
                 'id',
                 'name',
                 'type',
-                'course_id',
+                'course_type_id',
                 'user_id',
                 'end_at',
                 'start_at'
@@ -80,14 +80,13 @@ class SectionManagmentTest extends TestCase
 
         $this->actingAsSanctumUser();
 
-        $courseId = factory(Course::class)->create()->id;
 
         $userId = factory(User::class,)->create([
             'usertype_id' => User::TEACHER_TYPE
         ])->id;
 
         $response = $this->postJson(route('sections.store'), [
-            'course_id' => $courseId,
+            'course_type_id' => $this->faker->randomElement(CourseType::all())->id,
             'user_id' => $userId,
             'start_at' => Carbon::create(2020, 3, 21)->format('Y-m-d'),
             'end_at' => Carbon::create(2020, 3, 30)->format('Y-m-d'),
@@ -98,7 +97,7 @@ class SectionManagmentTest extends TestCase
             'data' => [
                 'id',
                 'name',
-                'course_id',
+                'course_type_id',
                 'user_id',
                 'start_at',
                 'end_at'
@@ -114,7 +113,6 @@ class SectionManagmentTest extends TestCase
 
         $this->actingAsSanctumUser();
 
-        $courseId = factory(Course::class)->create()->id;
 
         $userId = factory(User::class)->create([
             'usertype_id' => User::TEACHER_TYPE
@@ -123,11 +121,11 @@ class SectionManagmentTest extends TestCase
         $sectionId = factory(Section::class)->create()->id;
 
         $response = $this->patchJson(route('sections.update', $sectionId), [
-            'course_id' => $courseId,
+            'course_type_id' => $this->faker->randomElement(CourseType::all())->id,
             'user_id' => $userId,
             'start_at' => Carbon::create(2020, 3, 21)->format('Y-m-d'),
             'end_at' => Carbon::create(2020, 3, 30)->format('Y-m-d'),
-        ]);
+        ])->dump();
 
         $response->assertNoContent();
     }

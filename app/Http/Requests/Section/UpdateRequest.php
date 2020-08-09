@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_id' => 'required|exists:courses,id',
+            'course_type_id' => 'required|exists:course_types,id',
             'user_id' => 'required|exists:users,id',
             'start_at' => 'required|before_or_equal:end_at',
             'end_at' => 'required|after_or_equal:start_at'

@@ -18,8 +18,8 @@ class SectionResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'type'=>$this->course->courseType->name ,
-            'course_id'=>$this->course_id,
+            'type'=>$this->courseType->name ,
+            'course_type_id'=>$this->course_type_id,
             'user_id'=>$this->user_id,
             'start_at'=>$this->start_at,
             'end_at'=>$this->end_at
