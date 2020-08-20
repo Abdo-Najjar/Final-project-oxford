@@ -71,6 +71,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //store evaluation for student
     Route::put('evaluations/{user}/students/{section}/sections', 'EvaluationController@evaluateStudent')->name('evaluations.evaluateStudent');
+    
+    //
     Route::get('evaluations/{user}/students/{section}/sections', 'EvaluationController@showStudentEvaluation')->name('evaluations.evaluateStudent');
 });
 
