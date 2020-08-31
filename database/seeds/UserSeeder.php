@@ -1,5 +1,6 @@
 <?php
 
+use App\CourseType;
 use App\User;
 use App\UserType;
 use Illuminate\Database\Seeder;
@@ -19,10 +20,20 @@ class UserSeeder extends Seeder
             'usertype_id' => UserType::whereType('admin')->first()->id
         ]);
 
-        factory(User::class)->create([
+        $teacher = factory(User::class)->create([
             'email' => 'teacher@teacher.com',
             'usertype_id' => UserType::whereType('teacher')->first()->id
         ]);
+
+
+        for ($i = 0; $i < 5; $i++) {
+            $teacher->sections()->create([
+                'course_type_id' => CourseType::first()->id,
+                'start_at' => $this->faker->date(),
+                'end_at' => $this->faker->date(),
+            ]);
+        }
+
 
 
         factory(User::class)->create([
@@ -32,7 +43,7 @@ class UserSeeder extends Seeder
 
 
         factory(User::class, 10)->create([
-            'usertype_id'=>User::STUDENT_TYPE
+            'usertype_id' => User::STUDENT_TYPE
         ]);
     }
 }
