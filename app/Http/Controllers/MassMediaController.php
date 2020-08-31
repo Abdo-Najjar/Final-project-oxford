@@ -29,6 +29,17 @@ class MassMediaController extends Controller
         return MediaResource::collection($courseType->media()->orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
 
+    public function courseTypeVideo(CourseType $courseType)
+    {
+        return MediaResource::collection($courseType->media()->where('type', MassMedia::MEDIA_VEDIO_TYPE)->orderByDesc('updated_at')->paginate(app('pagination_value')));
+    }
+
+
+    public function courseTypeAudio(CourseType $courseType)
+    {
+        return MediaResource::collection($courseType->media()->where('type', MassMedia::MEDIA_AUDIO_TYPE)->orderByDesc('updated_at')->paginate(app('pagination_value')));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

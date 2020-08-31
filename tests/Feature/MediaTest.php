@@ -37,14 +37,61 @@ class MediaTest extends TestCase
             'course_type_id'=> ZLIB_FILTERED
         ]);
         //send get request for media/{courseType}/courseType end point
-        $response = $this->getJson(route('media.courseTypeIndex' ,ZLIB_FILTERED));
+        $response = $this->getJson(route('media.courseTypeIndex' ,ZLIB_FILTERED))->dump();
 
         //assert the status code return is 200
         $response->assertOk();
 
         //assert the json response has 3 attributes (data , meta and links for pagination)
         $response->assertJsonCount(ZLIB_FULL_FLUSH);
+    
     }
+
+    
+    public function test_media_related_with_courseType_audio_type_pagination()
+    {
+        // login as authontcated user
+        $this->actingAsSanctumUser();
+
+        //create media with factory
+        factory(MassMedia::class, ZLIB_BLOCK)->create([
+            'course_type_id'=> ZLIB_FILTERED
+        ]);
+        //send get request for media/{courseType}/courseType end point
+        $response = $this->getJson(route('media.courseTypeAudioIndex' ,ZLIB_FILTERED))->dump();
+
+        //assert the status code return is 200
+        $response->assertOk();
+
+        //assert the json response has 3 attributes (data , meta and links for pagination)
+        $response->assertJsonCount(ZLIB_FULL_FLUSH);
+    
+    }
+
+    
+    public function test_media_related_with_courseType_video_type_pagination()
+    {
+        // login as authontcated user
+        $this->actingAsSanctumUser();
+
+        //create media with factory
+        factory(MassMedia::class, ZLIB_BLOCK)->states('viedo')->create([
+            'course_type_id'=> ZLIB_FILTERED
+        ]);
+        //send get request for media/{courseType}/courseType end point
+        $response = $this->getJson(route('media.courseTypeVideoIndex' ,ZLIB_FILTERED))->dump();
+
+        //assert the status code return is 200
+        $response->assertOk();
+
+        //assert the json response has 3 attributes (data , meta and links for pagination)
+        $response->assertJsonCount(ZLIB_FULL_FLUSH);
+    
+    }
+
+    
+    
+
 
 
 

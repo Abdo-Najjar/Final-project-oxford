@@ -81,9 +81,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // paginate media for all 
     Route::get('media/{courseType}/courseType' , 'MassMediaController@courseTypeIndex')->name('media.courseTypeIndex');
 
-    // Route::get('media/{courseType}/courseType/video' , 'MassMediaController@courseTypeVideoIndex')->name('media.courseTypeVideoIndex');
+    Route::get('media/{courseType}/courseType/video' , 'MassMediaController@courseTypeVideo')->name('media.courseTypeVideoIndex');
 
-    // Route::get('media/{courseType}/courseType/audio' , 'MassMediaController@courseTypeAudioIndex')->name('media.courseTypeAudioIndex');
+    Route::get('media/{courseType}/courseType/audio' , 'MassMediaController@courseTypeAudio')->name('media.courseTypeAudioIndex');
     //show media
     Route::get('media/{massMedia}' , 'MassMediaController@show')->name('media.show');
 });
