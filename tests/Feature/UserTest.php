@@ -161,4 +161,21 @@ class UserTest extends TestCase
             'links' => []
         ]);
     }
+
+    public function test_get_all_section_for_teacher()
+    {
+
+        $this->actingAsSanctumUser();
+
+        User::first()->sections()->create([
+            'course_type_id' => CourseType::first()->id,
+            'start_at' => $this->faker->date(),
+            'end_at' => $this->faker->date(),
+        ]);
+
+
+        $response =  $this->getJson(route('teachers.sections'));
+
+        $response->assertOk();
+    }
 }

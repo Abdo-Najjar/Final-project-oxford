@@ -54,6 +54,9 @@ Route::middleware('auth:sanctum')->group(function () {
     //get teachers
     Route::get('teachers', 'UserController@teachers')->name('teachers.index');
 
+    // return all sections that teacher has 
+    Route::get('teachers/sections' , 'UserController@sections')->name('teachers.sections');
+
     //get students
     Route::get('students', 'UserController@students')->name('students.index');
 

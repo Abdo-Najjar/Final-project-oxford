@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CourseType;
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Resources\SectionResource;
 use App\Http\Resources\UserResource;
 use App\Section;
 use App\User;
@@ -96,6 +97,12 @@ class UserController extends Controller
 
     public function studentsInSection(Section $section)
     {
-        return  UserResource::collection( $section->students()->paginate(app('pagination_value')));
+        return  UserResource::collection($section->students()->orderByDesc('updated_at')->paginate(app('pagination_value')));
+    }
+
+    public  function sections()
+    {
+
+        return SectionResource::collection(auth()->user()->sections()->orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
 }

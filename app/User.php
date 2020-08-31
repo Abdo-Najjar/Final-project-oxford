@@ -87,7 +87,7 @@ class User extends Authenticatable
 
 
     /**
-     * elequant relation with sections table type table for teacher
+     * elequant relation with sections table type table for student
      */
     public function classes()
     {
