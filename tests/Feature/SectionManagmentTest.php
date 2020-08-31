@@ -132,9 +132,6 @@ class SectionManagmentTest extends TestCase
 
 
 
-
-
-
     public function test_admin_could_delete_section()
     {
 
@@ -153,22 +150,25 @@ class SectionManagmentTest extends TestCase
 
     public function test_assign_student__to_class_endpoint()
     {
-
+        //login as admin
         $this->actingAsSanctumUser();
 
+        //create new section using factory
         $section = factory(Section::class)->create();
 
+        //create new student with type student
         $user = factory(User::class)->create([
             'usertype_id' => User::STUDENT_TYPE
         ]);
 
+        //send put request for assign student to section end point
         $response =  $this->putJson(route('sections.assign', ['section' => $section, 'user' => $user]));
-
+        
+        //assert the http response body is empty
         $response->assertNoContent();
-
-        $numberOfAssignedUsers = 1;
-
-        $this->assertDatabaseCount('section_user', $numberOfAssignedUsers);
+        
+        //assert section_user table had at lest 1 record (Assgin)
+        $this->assertDatabaseCount('section_user', ZLIB_FILTERED);
     }
 
 
@@ -176,26 +176,30 @@ class SectionManagmentTest extends TestCase
     public function test_fire_student_from_class_endpoint()
     {
 
+        //login as admin
         $this->actingAsSanctumUser();
 
+        //create new section using factory
         $section = factory(Section::class)->create();
 
+        //create new student with type student
         $user = factory(User::class)->create([
             'usertype_id' => User::STUDENT_TYPE
         ]);
-
+        
+        //check none of sudents assgin to any class
         $this->assertDatabaseCount('section_user', ZLIB_OK);
-
 
         //assgin user throw elequant relation
         $section->students()->sync($user->id);
 
+        //send delete request for fire student from section 
         $response =  $this->deleteJson(route('sections.fire', ['section' => $section, 'user' => $user]));
 
+        //assert that the http body of the response dosenot has any content 
         $response->assertNoContent();
 
-        $numberOfAssignedUsers = 0;
-
-        $this->assertDatabaseCount('section_user', $numberOfAssignedUsers);
+        //assert that the none of th users assgin to sec
+        $this->assertDatabaseCount('section_user',ZLIB_NO_FLUSH);
     }
 }

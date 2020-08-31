@@ -72,8 +72,20 @@ Route::middleware('auth:sanctum')->group(function () {
     //store evaluation for student
     Route::put('evaluations/{user}/students/{section}/sections', 'EvaluationController@evaluateStudent')->name('evaluations.evaluateStudent');
     
-    //
+    //show student evaluation
     Route::get('evaluations/{user}/students/{section}/sections', 'EvaluationController@showStudentEvaluation')->name('evaluations.evaluateStudent');
+
+    // paginate media   
+    Route::get('media' , 'MassMediaController@index')->name('media.index');
+
+    // paginate media for all 
+    Route::get('media/{courseType}/courseType' , 'MassMediaController@courseTypeIndex')->name('media.courseTypeIndex');
+
+    // Route::get('media/{courseType}/courseType/video' , 'MassMediaController@courseTypeVideoIndex')->name('media.courseTypeVideoIndex');
+
+    // Route::get('media/{courseType}/courseType/audio' , 'MassMediaController@courseTypeAudioIndex')->name('media.courseTypeAudioIndex');
+    //show media
+    Route::get('media/{massMedia}' , 'MassMediaController@show')->name('media.show');
 });
 
 

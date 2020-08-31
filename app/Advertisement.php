@@ -10,10 +10,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Advertisement extends Model implements HasMedia
 {
     
-    use InteractsWithMedia;
-
     protected $guarded = [];
-
+    
+    
+    use InteractsWithMedia;
     /**
      * get image from polymporfic realationship
      *

@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class CourseType extends Model
 {
     protected $guarded = [];
+
+    public function media()
+    {
+        return $this->hasMany(MassMedia::class);
+    }
 }
