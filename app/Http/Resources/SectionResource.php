@@ -22,9 +22,8 @@ class SectionResource extends JsonResource
             'course_type_id'=>$this->course_type_id,
             'user_id'=>$this->user_id,
             'start_at'=>$this->start_at,
-            'end_at'=>$this->end_at
+            'end_at'=>$this->end_at,
+            // 'overal_rank'=> 
         ];
-
-        return parent::toArray($request);
     }
 }

@@ -76,7 +76,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('evaluations/{user}/students/{section}/sections', 'EvaluationController@evaluateStudent')->name('evaluations.evaluateStudent');
     
     //show student evaluation
-    Route::get('evaluations/{user}/students/{section}/sections', 'EvaluationController@showStudentEvaluation')->name('evaluations.evaluateStudent');
+    Route::get('evaluations/{user}/students/{section}/sections', 'EvaluationController@showStudentEvaluation')->name('evaluations.showStudentEvaluation');
+
+    // store evaluation for section
+    Route::put('evaluations/{section}/sections' , 'EvaluationController@evaluateSection')->name('evaluations.section');
+
+    // store evaluation for teacher
+    Route::put('evaluations/{user}/sections' , 'EvaluationController@evaluateTeacher')->name('evaluations.teacher');
+
 
     // paginate media   
     Route::get('media' , 'MassMediaController@index')->name('media.index');
