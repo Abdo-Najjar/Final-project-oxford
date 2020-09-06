@@ -105,4 +105,9 @@ class UserController extends Controller
 
         return SectionResource::collection(auth()->user()->sections()->orderByDesc('updated_at')->paginate(app('pagination_value')));
     }
+
+    public function myClasses()
+    {
+        return SectionResource::collection(auth()->user()->classes()->orderByDesc('updated_at')->paginate(app('pagination_value')));
+    }
 }

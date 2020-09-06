@@ -60,6 +60,9 @@ Route::middleware('auth:sanctum')->group(function () {
     //get students
     Route::get('students', 'UserController@students')->name('students.index');
 
+    // get classes for student
+    Route::get('my-classes' , 'UserController@myClasses')->name('students.classes');
+
     //get students related with a classtype
     Route::get('students/{courseType}/coursetypes', 'UserController@studentsInCourseType')->name('students.studentsInCourseType');
 
