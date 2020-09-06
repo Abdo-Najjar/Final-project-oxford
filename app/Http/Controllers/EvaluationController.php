@@ -12,6 +12,7 @@ use App\Http\Resources\GeneralResource;
 use App\Http\Requests\Student\StudentEvaluationRequest;
 use App\Http\Requests\Section\SectionEvaluationRequest;
 use App\Http\Requests\TeacherEvaluationRequest;
+use App\Http\Resources\TeacherEvaluationResrouce;
 use Illuminate\Support\Arr;
 
 class EvaluationController extends Controller
@@ -47,5 +48,11 @@ class EvaluationController extends Controller
   public function evaluateTeacher(TeacherEvaluationRequest $request , User $user)
   {
     return new GeneralResource(TeacherEvaluation::Create(Arr::add($request->validated() , 'user_id' , $user->id)));
+  }
+
+  public function showTeacherEvaluation():TeacherEvaluationResrouce
+  {
+
+    return new TeacherEvaluationResrouce();
   }
 }
